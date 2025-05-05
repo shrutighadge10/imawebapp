@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="header.css">
+    <title>Header</title>
+    <style>
+        /* Header Styles */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 5px 20px; /* Reduced padding for height */
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+            position: fixed; /* Fix the header at the top */
+            width: 100%;
+            top: 0;
+            z-index: 1000; /* Ensure it stays above other content */
+        }
+
+        .logo {
+            margin-right: auto; /* Push search bar to the right */
+        }
+
+        .search-bar {
+            flex: 1; /* Allow search bar to take available space */
+            margin-left: 1000px; /* Space between search bar and avatar */
+        }
+
+        .search-bar input {
+            width: 80%; /* Full width for the search input */
+            padding: 5px; /* Padding for the input */
+            border: 1px solid #ccc; /* Border for the input */
+            border-radius: 4px; /* Rounded corners */
+        }
+
+        .avatar {
+            width: 30px; /* Adjusted width */
+            height: 30px; /* Adjusted height */
+            background-color: #ee1919; /* a nice orange color */
+            color: white;
+            border-radius: 50%; /* circle */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px; /* Adjusted font size */
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            margin-right: 40px;
+        }
+
+        /* Media Queries for Responsive Design */
+        @media (max-width: 768px) {
+            .search-bar input {
+                width: 70%; /* Adjust width for smaller screens */
+            }
+
+            .avatar {
+                margin-right: 20px; /* Reduce margin for smaller screens */
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                flex-direction: column; /* Stack items vertically */
+                align-items: flex-start; /* Align items to the start */
+                padding: 10px; /* Increase padding for touch targets */
+            }
+
+            .search-bar {
+                width: 100%; /* Full width for search bar */
+                margin: 10px 0; /* Margin for spacing */
+            }
+
+            .avatar {
+                margin-right: 0; /* Remove margin */
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <a href="javascript:history.back();"><img src="/images/IMA.JPG" alt="Logo"></a>
+    </div>
+    <div class="search-bar">
+        <input type="text" placeholder="Search...">
+    </div>
+    <div class="avatar">
+        <span th:text="${#strings.substring(session.user.mployeename, 0, 1)} + ${#strings.substring(session.user.employeename.split(' ').length > 1 ? session.user.employeename.split(' ')[1] : session.user.employeename, 0, 1)}">AK</span>
+    </div>
+</header>
+<script src="/header.js"></script>
+
+</body>
+</html>

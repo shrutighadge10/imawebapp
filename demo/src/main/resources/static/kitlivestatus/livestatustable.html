@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Live Status Overview</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+           @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            background: #35474d;
+            font-family: 'Roboto', Arial, Helvetica, sans-serif;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            border-bottom: 2px solid white;
+        }
+
+        .navbar h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        
+      /* Header styles */
+
+/* Sidebar styles */
+.sidebar {
+    width: 200px;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+    margin-right: 30px; /* Increased margin for space */
+    margin-top: 30px; /* Added margin to create space from the header */
+    height: calc(70vh - 80px); /* Adjusted height to account for header */
+    position: fixed;
+    top: 60px;
+    left: 0;
+    overflow-y: auto;
+
+}
+
+/* Container styles */
+.container {
+    flex: 1;
+    padding: 30px; /* Increased padding */
+    margin-left: 220px; /* Leave space for the sidebar */
+    margin-right: 0; /* Ensure no extra space on the right */
+    margin-top: 80px; /* Added margin to create space from the header */
+
+}
+
+        .sidebar h3 {
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 10px;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .sidebar button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #111314;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .sidebar button:hover {
+            background-color: #14303a;
+        }
+
+        .container {
+            flex: 1;
+            padding: 20px;
+            margin-left: 220px; /* Leave space for the sidebar */
+        }
+
+        h2 {
+            font-size: 20px;
+            color: #ffffffe3;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .tbl-header {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .tbl-content {
+            height: 300px;
+            overflow-x: auto;
+            margin-top: 0px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        table {
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            vertical-align: middle;
+            font-weight: 300;
+            font-size: 10px;
+            color: #fff;
+            border-bottom: solid 1px rgba(255, 255, 255, 0.1);
+        }
+
+        .count {
+            font-size: 16px;
+            color: white;
+            text-align: center;
+            margin-top: 10px;
+        }
+        /* Custom scrollbar styles */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(238, 236, 232, 0);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div id="header"></div> <!-- Header will be loaded here -->
+
+    </div>
+
+    <div class="sidebar">
+        <h3>Live Status</h3>
+        <div class="card">
+            <button onclick="renderTableByStatus('inhand')">IN HAND <span id="count-inhand"></span></button>
+        </div>
+        <div class="card">
+            <button onclick="renderTableByStatus('wip')">WIP <span id="count-wip"></span></button>
+        </div>
+        <div class="card">
+            <button onclick="renderTableByStatus('self_inspection')">SELF INSPECTION <span id="count-self_inspection"></span></button>
+        </div>
+        <div class="card">
+            <button onclick="renderTableByStatus('hold_wrongPart')">HOLD-WRONG PART <span id="count-hold_wrongPart"></span></button>
+        </div>
+        <div class="card">
+            <button onclick="renderTableByStatus('hold_shortfall')">HOLD-SHORTFALL <span id="count-hold_shortfall"></span></button>
+        </div>
+        <div class="card">
+            <button onclick="renderTableByStatus('hold_qualityIssue')">HOLD-QUALITY ISSUE <span id="count-hold_qualityIssue"></span></button>
+        </div>
+        <div class="card">
+            <button onclick="renderTableByStatus('hold-closure')">CLOSE <span id="count-hold-closure"></span></button>
+        </div>
+        <div class="card">
+            <button onclick="renderTableByStatus('readyForDispatch')">READY FOR DISPATCH <span id="count-readyForDispatch"></span></button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="tableHeader" style="text-align: center; font-size: 18px; font-weight: bold; color: white; margin-bottom: 10px;">Work In Progress Status</div>
+        <div class="tbl-header">
+            <table cellpadding="0" cellspacing="0" border="0">
+                <thead>
+                    <tr>
+                        <th>Reference</th>
+                        <th>BLC PO</th>
+                        <th>BLC PO Date</th>
+                        <th>Machine Name</th>
+                        <th>Assembly Code</th>
+                        <th>Description</th>
+                        <th>Kit Acknowledge By</th>
+                        <th>Kit Acknowledge Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="tbl-content">
+            <table cellpadding="0" cellspacing="0" border="0">
+                <tbody id="tableContainer">
+                    <!-- Table rows will be dynamically populated here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="footer"></div> <!-- Footer will be loaded here -->
+
+    <script>
+
+         // Load header and footer
+ fetch('/fragments/header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+
+        fetch('/fragments/footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading footer:', error));
+            // Fetch user details and update header and footer
+
+        
+        let currentData = [];
+        const statuses = ['inhand', 'wip', 'self_inspection', 'hold_wrongPart','hold_shortfall','hold_qualityIssue', 'hold-closure', 'readyForDispatch'];
+
+        // Fetch all data for live status
+        function fetchLiveData() {
+            fetch('/api/form/all') // Fetch all records
+                .then(response => response.json())
+                .then(data => {
+                    currentData = data;
+                    renderTableByStatus('wip'); // Display "Work In Progress" by default
+                    updateStatusCounts(); // Update counts after fetching data
+
+                });
+        }
+
+        // Render table for a specific status
+        function renderTableByStatus(status) {
+            const tableContainer = document.getElementById('tableContainer');
+            const tableHeader = document.getElementById('tableHeader');
+            tableContainer.innerHTML = '';
+
+            // Update the header with the current status name
+            tableHeader.innerText = `${status.charAt(0).toUpperCase() + status.slice(1)} Status`;
+
+            const filteredData = currentData.filter(record => record.liveStatus === status);
+            if (filteredData.length === 0) {
+                tableContainer.innerHTML = `<p>No records found for ${status.charAt(0).toUpperCase() + status.slice(1)}.</p>`;
+                return;
+            }
+
+            filteredData.forEach(record => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${record.reference}</td>
+                    <td>${record.blcPo || ''}</td>
+                    <td>${record.blcPoDate || ''}</td>
+                    <td>${record.machineName || ''}</td>
+                    <td>${record.assemblyCode || ''}</td>
+                    <td>${record.description || ''}</td>
+                    <td>${record.kitAcknowledgeBy || ''}</td>
+                    <td>${record.kitAcknowledgeDate || ''}</td>
+                    <td><button onclick="openUpdateModal(${record.id})">Update</button></td>
+                `;
+                tableContainer.appendChild(row);
+            });
+        }
+
+        function updateStatusCounts() {
+    const counts = {};
+
+    // Count records for each status
+    statuses.forEach(status => {
+        counts[status] = currentData.filter(record => record.liveStatus === status).length;
+    });
+
+    // Update button counts
+    for (const status of statuses) {
+        const countElement = document.getElementById(`count-${status}`);
+        if (countElement) {
+            countElement.innerText = `(${counts[status]})`;
+        }
+    }
+}
+
+        function openUpdateModal(id) {
+            const record = currentData.find(item => item.id === id);
+            const queryParams = new URLSearchParams({
+                id: record.id,
+                referenceId: record.reference,
+                currentDateTime: record.currentDateTime,
+                dateTime: record.kitFormDate,
+                blcPo: record.blcPo,
+                blcPoDate: record.blcPoDate,
+                ccn: record.ccn,
+                assemblyCode: record.assemblyCode,
+                machineName: record.machineName,
+                stage: record.stage,
+                inwardBy: record.inwardBy,
+                inwardQty: record.inwardQty,
+                description: record.description,
+                kitRecordDate: record.kitRecordDate,
+                kitAcknowledgeBy: record.kitAcknowledgeBy,
+                kitAcknowledgeDate: record.kitAcknowledgeDate,
+                assyStartDate: record.assyStartDate,
+                bhomikaEngineer: record.bhomikaEngineer,
+                liveStatus: record.liveStatus,
+                assyEndDate: record.assyEndDate,
+                blcStatus: record.blcStatus,
+                invoiceNumber: record.invoiceNumber,
+                invoiceDate: record.invoiceDate,
+                holdRemarks: record.holdRemarks,
+                holdDate: record.holdDate,
+                closeDate: record.closeDate,
+                closeRemarks: record.closeRemarks
+                
+            }).toString();
+
+            console.log(`Redirecting to: updateliveform.html?${queryParams}`);
+            window.location.href = `updateliveform.html?${queryParams}`;
+        }
+
+        
+
+        // Initial fetch for live status data
+        fetchLiveData();
+    </script>
+</body>
+</html>

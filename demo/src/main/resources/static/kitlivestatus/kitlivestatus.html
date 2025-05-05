@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Completed Kit Entries</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            background: #35474d;
+            font-family: 'Roboto', Arial, Helvetica, sans-serif;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            border-bottom: 2px solid white;
+        }
+
+        .navbar h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        
+      /* Header styles */
+
+/* Sidebar styles */
+.sidebar {
+    width: 200px;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+    margin-right: 30px; /* Increased margin for space */
+    margin-top: 30px; /* Added margin to create space from the header */
+    height: calc(70vh - 80px); /* Adjusted height to account for header */
+    position: fixed;
+    top: 60px;
+    left: 0;
+    overflow-y: auto;
+
+}
+
+/* Container styles */
+.container {
+    flex: 1;
+    padding: 30px; /* Increased padding */
+    margin-left: 220px; /* Leave space for the sidebar */
+    margin-right: 0; /* Ensure no extra space on the right */
+    margin-top: 50px; /* Added margin to create space from the header */
+
+}
+
+        .sidebar h3 {
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 10px;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .sidebar button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #111314;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .sidebar button:hover {
+            background-color: #14303a;
+        }
+
+        .container {
+            flex: 1;
+            padding: 20px;
+            margin-left: 220px; /* Leave space for the sidebar */
+        }
+
+        h2 {
+            font-size: 20px;
+            color: #ffffffe3;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .tbl-header {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .tbl-content {
+            height: 300px;
+            overflow-x: auto;
+            margin-top: 0px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        table {
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            vertical-align: middle;
+            font-weight: 300;
+            font-size: 10px;
+            color: #fff;
+            border-bottom: solid 1px rgba(255, 255, 255, 0.1);
+        }
+
+        .count {
+            font-size: 16px;
+            color: white;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+        <div id="header"></div> <!-- Header will be loaded here -->
+
+    </div>
+
+    <div class="sidebar">
+        <h3>Inward Status</h3>
+        <div class="card">
+            <button class="count">Kit Forwarded Data: <span id="totalCount">0</span></button>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Kit Forwarded Details</h2>
+        <div class="tbl-header">
+            <table cellpadding="0" cellspacing="0" border="0">
+                <thead>
+                    <tr>
+                        <th>Reference ID</th>
+                        <th>BLC_PO</th>
+                        <th>BLCPO_DATE</th>
+                        <th>CCN</th>
+                        <th>ASSEMBLY CODE</th>
+                        <th>MACHINE NAME</th>
+                        <th>STAGE</th>
+                        <th>STATUS</th>
+                        <th>INWARD BY</th>
+                        <th>INWARD-QTY</th>
+                        <th>DESCRIPTION</th>
+                        <th>DATE TIME</th>
+                        <th>COMPLETION DATE</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="tbl-content">
+            <table cellpadding="0" cellspacing="0" border="0">
+                <tbody id="completedEntriesBody">
+                    <!-- Completed entries will be populated here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="footer"></div> <!-- Footer will be loaded here -->
+
+    <script>
+
+         // Load header and footer
+ fetch('/fragments/header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+
+        fetch('/fragments/footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading footer:', error));
+            // Fetch user details and update header and footer
+        async function fetchCompletedEntries() {
+            const response = await fetch('/api/kitform/completed'); // Endpoint to fetch completed entries
+            const entries = await response.json();
+
+            // Sort entries in descending order based on completionDate
+            entries.sort((a, b) => new Date(b.completionDate) - new Date(a.completionDate));
+
+            const completedEntriesBody = document.getElementById("completedEntriesBody");
+            const totalCount = document.getElementById("totalCount");
+            completedEntriesBody.innerHTML = ""; // Clear previous entries
+            totalCount.innerText = entries.length; // Update total count
+
+            entries.forEach(entry => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${entry.referenceId}</td>
+                    <td>${entry.blcPo}</td>
+                    <td>${entry.blcPoDate}</td>
+                    <td>${entry.ccn}</td>
+                    <td>${entry.assemblyCode}</td>
+                    <td>${entry.machineName}</td>
+                    <td>${entry.stage}</td>
+                    <td>${entry.status}</td>
+                    <td>${entry.inwardBy}</td>
+                    <td>${entry.inwardQty}</td>
+                    <td>${entry.description}</td>
+                    <td>${new Date(entry.completionDate).toLocaleString()}</td>
+                    <td><button onclick="editEntry('${entry.referenceId}')">Edit</button></td>
+                `;
+                completedEntriesBody.appendChild(row);
+            });
+        }
+
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const refreshTable = urlParams.get('refreshTable');
+
+            if (refreshTable === 'true') {
+                fetchCompletedEntries(); // Refresh the table if redirected after form submission
+            } else {
+                fetchCompletedEntries(); // Fetch completed entries on page load
+            }
+        };
+
+        async function editEntry(referenceId) {
+            console.log("Editing entry with Reference ID:", referenceId); // Log the Reference ID being edited
+            const response = await fetch(`/api/kitform/completed/${referenceId}`); // Change the endpoint to use referenceId
+            if (!response.ok) {
+                console.error("Failed to fetch data for Reference ID:", referenceId);
+                return; // Exit if the fetch fails
+            }
+            const kitForm = await response.json();
+            console.log("Fetched kit form data:", kitForm); // Log the fetched data
+
+            // Redirect to the form page with query parameters
+            const queryParams = new URLSearchParams({
+                referenceId: kitForm.referenceId,
+                dateTime: new Date(kitForm.dateTime).toISOString().split('T')[0],
+                blcPo: kitForm.blcPo,
+                blcPoDate: kitForm.blcPoDate,
+                ccn: kitForm.ccn,
+                assemblyCode: kitForm.assemblyCode,
+                machineName: kitForm.machineName,
+                stage: kitForm.stage,
+                inwardBy: kitForm.inwardBy,
+                inwardQty: kitForm.inwardQty,
+                description: kitForm.description,
+                completionDate: kitForm.completionDate ? new Date(kitForm.completionDate).toISOString().split('T')[0] : '',
+                status: kitForm.status
+            }).toString();
+
+            window.location.href = `formPage.html?${queryParams}`; // Replace with your form page URL
+        }
+    </script>
+</body>
+</html>
