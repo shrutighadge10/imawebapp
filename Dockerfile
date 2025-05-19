@@ -2,8 +2,12 @@
 FROM maven:3.8.5-openjdk-17 AS build
 WORKDIR /app
 
-# Copy only the source code inside demo folder
-COPY demo /app
+# Copy pom.xml and download dependencies (improves build cache)
+COPY pom.xml /app/
+RUN mvn dependency:go-offline
+
+# Copy the rest of the source code
+COPY . /app
 
 # Build the project and skip tests
 RUN mvn clean package -DskipTests
@@ -12,8 +16,11 @@ RUN mvn clean package -DskipTests
 FROM openjdk:17-jdk-slim
 WORKDIR /app
 
-# Copy the built JAR from the build stage
-COPY --from=build /demo/target/*.jar app.jar
+# Copy the jar from build stage
+COPY --from=build /app/target/*.jar app.jar
+
+# Expose port
+EXPOSE 8080
 
 # Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
