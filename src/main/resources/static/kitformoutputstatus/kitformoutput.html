@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kit Inward Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
+        html, body {
+            height: 100%; /* Set height to 100% for html and body */
+            margin: 0; /* Remove default margin */
+        }
+
+        body {
+            background: #35474d;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column; /* Change to column for top navigation */
+        }
+
+        .navbar {
+            background-color:  rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            display: flex;
+            justify-content: center; /* Center the title */
+            align-items: center;
+            color: white;
+            border-bottom: 2px solid white; /* Add white border at the bottom */
+        }
+
+        .navbar h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        
+        .container {
+            flex: 1;
+    padding: 30px; /* Increased padding */
+    margin-left: 220px; /* Leave space for the sidebar */
+    margin-right: 0; /* Ensure no extra space on the right */
+    margin-top: 50px; /* Added margin to create space from the header */
+        }
+
+        h2 {
+            font-size: 20px;
+            color: #ffffffe3;
+            font-weight: 600; /* Bold */
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .sidebar h3 {
+            font-weight: 600; /* Bold */
+            color: #ffffff; /* White color for better visibility */
+            margin-bottom: 10px; /* Space below the heading */
+            text-align: center; /* Center the text horizontally */
+            padding: 10px 0; /* Add some padding to make it look better */
+
+
+        }
+        
+
+        .sidebar button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            background-color:  #252f33;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px; /* Reduced font size */
+        }
+
+        .sidebar button:hover {
+            background-color:  #182225;
+        }
+
+        .tbl-header {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        .tbl-content {
+            height: 300px;
+            overflow-x: auto;
+            margin-top: 0px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        table {
+            width: 100%;
+            table-layout: fixed;
+        }
+        th {
+            padding: 15px 10px;
+            text-align: left;
+            font-weight: 500;
+            font-size: 10px;
+            color: #fff;
+            text-transform: uppercase;
+        }
+        td {
+            padding: 10px;
+            text-align: left;
+            vertical-align: middle;
+            font-weight: 300;
+            font-size: 10px;
+            color: #fff;
+            border-bottom: solid 1px rgba(255, 255, 255, 0.1);
+        }
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px auto; /* Center the container */
+            width: 400px; /* Set a fixed width for a square shape */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Optional: Add shadow for depth */
+        }
+
+        .form-container h2 {
+            margin-bottom: 20px;
+            text-align: center ;
+            color: #ffffff;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #ffffff;
+            margin-bottom: 5px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group input[type="date"],
+        .form-group input[type="datetime-local"] {
+            width: 90%; /* Make the input fields thinner */
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            margin: 0 auto; /* Center the input fields */
+            display: block; /* Ensure they are block elements */
+        }
+
+        .form-group input[type="radio"] {
+            margin-right: 5px;
+            display: inline; /* Align radio buttons horizontally */
+        }
+
+        .form-group .radio-label {
+            display: inline; /* Align radio labels horizontally */
+            color: #ffffff; /* Ensure the label color is white */
+        }
+
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            background-color: #222b2c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .form-group button:hover {
+            background-color: #14303a;
+        }
+
+        .sidebar {
+    width: 200px;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+    margin-right: 30px; /* Increased margin for space */
+    margin-top: 30px; /* Added margin to create space from the header */
+    height: calc(80vh - 80px); /* Adjusted height to account for header */
+    position: fixed;
+    top: 60px;
+    left: 0;
+    overflow-y: auto;
+}
+.card {
+    background-color: rgba(255, 255, 255, 0.2); /* Light background for the card */
+    border-radius: 8px; /* Rounded corners */
+    margin: 10px 0; /* Space between cards */
+    padding: 10px; /* Padding inside the card */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+}
+
+.card button {
+    width: 100%; /* Make button take full width of the card */
+    padding: 10px; /* Padding for the button */
+    background-color: #171d1f; /* Button background color */
+    color: white; /* Button text color */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners for the button */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 14px; /* Font size for the button */
+}
+
+.card button:hover {
+    background-color: #14303a; /* Darker background on hover */
+}
+.chart-container {
+    width: 100%; /* Make the chart container take full width of the sidebar */
+    height: 200px; /* Set a fixed height for the chart container */
+    margin-top: 20px; /* Add some margin to separate from buttons */
+    padding: 10px; /* Add some padding */
+    border: 1px solid #ccc; /* Optional: Add a border */
+    border-radius: 8px; /* Optional: Add rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow */
+    display: flex; /* Use flexbox to center the canvas */
+    justify-content: center; /* Center the canvas horizontally */
+    align-items: center; /* Center the canvas vertically */
+}
+canvas {
+    width: 100% !important; /* Make the canvas responsive */
+    height: auto !important; /* Maintain aspect ratio */
+    margin-top: 20px; /* Add some margin to separate from buttons */
+}
+        /* Custom scrollbar styles */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(238, 236, 232, 0);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.3);
+        }
+    </style>
+
+</head>
+<body>
+       
+    <div id="header"></div> <!-- Header will be loaded here -->
+
+
+<div class="sidebar">
+    <h3>Inward Status</h3>
+    <div class="form-group">
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" />
+    </div>
+    <div class="form-group">
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" />
+    </div>
+    <div class="form-group">
+        <button id="filterBtn">Filter</button>
+    </div>
+    
+    <div class="card">
+        <button onclick="fetchEntriesByStatus('IN PROCESS')">
+            IN PROCESS <span id="inProcessCount">0</span>
+        </button>
+    </div>
+    <div class="card">
+        <button onclick="fetchEntriesByStatus('SHORTFALL')">
+            SHORTFALL <span id="shortfallCount">0</span>
+        </button>
+    </div>
+    <div class="card">
+        <button onclick="fetchEntriesByStatus('COMPLETE')">
+            COMPLETED <span id="completeCount">0</span>
+        </button>
+    </div>
+    <canvas id="statusPieChart" width="200" height="200"></canvas>
+</div>
+
+<div class="container">
+    <div id="summaryTable">
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                 
+                </tr>
+            </thead>
+            <tbody id="summaryBody">
+                <!-- Summary counts will be populated here -->
+            </tbody>
+        </table>
+    </div>
+    <div id="detailedEntries" style="display:none;">
+        <h2 id="currentStatus">Status Details</h2>
+        <div class="tbl-header">
+            <table cellpadding="0" cellspacing="0" border="0">
+                <thead>
+                    <tr>
+                        <th>Reference ID</th>
+                        <th>Date</th>
+                        <th>BLC_PO</th>
+                        <th>BLCPO_DATE</th>
+                        <th>CCN</th>
+                        <th>ASSEMBLY CODE</th>
+                        <th>MACHINE NAME</th>
+                        <th>STAGE</th>
+                        <th>Status</th>
+                        <th>INWARD BY</th>
+                        <th>INWARD-QTY</th>
+                        <th>DESCRIPTION</th>
+                        <th>Completion Date</th> <!-- Add this header -->
+                        <th>Action</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+   <!-- Add the new canvas for the stacked bar chart -->
+
+        <div class="tbl-content">
+            <table cellpadding="0" cellspacing="0" border="0">
+                <tbody id="detailedBody">
+                    <!-- Detailed entries will be populated here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+
+    <div id="kitForm" class="form-container" style="display:none;">
+        <h2>Update Sub Assembly  Kit Form</h2>
+        <input type="hidden" id="kitFormId" value="" />
+        <div class="form-group">
+            <label>Reference ID:</label>
+            <input type="text" id="referenceId" disabled />
+        </div>
+        <div class="form-group">
+            <label>Date:</label>
+            <input type="datetime-local" id="dateTime" disabled /> <!-- Remove 'disabled' attribute -->
+        </div>
+        <div class="form-group">
+            <label>BLC_PO:</label>
+            <input type="text" id="blcPoInput" disabled />
+        </div>
+        <div class="form-group">
+            <label>BLCPO_DATE:</label>
+            <input type="date" id="blcPoDate" disabled />
+        </div>
+        <div class="form-group">
+            <label>CCN:</label>
+            <input type="text" id="ccn" disabled />
+        </div>
+        <div class="form-group">
+            <label>ASSEMBLY CODE:</label>
+            <input type="text" id="assemblyCode" disabled />
+        </div>
+        <div class="form-group">
+            <label>MACHINE NAME:</label>
+            <input type="text" id="machineName" disabled />
+        </div>
+        <div class="form-group">
+            <label>STAGE:</label>
+            <input type="text" id="stage" disabled />
+        </div>
+        <div class="form-group">
+            <label>INWARD BY:</label>
+            <input type="text" id="inwardBy" disabled />
+        </div>
+        <div class="form-group">
+            <label>INWARD-QTY:</label>
+            <input type="number" id="inwardQty" />
+        </div>
+        <div class="form-group">
+            <label>DESCRIPTION:</label>
+            <input type="text" id="description" disabled />
+        </div>
+        <div class="form-group">
+            <label>Status:</label><br />
+            <input type="radio" name="status" value="IN PROCESS" id="statusInProcess" /> In Process<br />
+            <input type="radio" name="status" value="SHORTFALL" id="statusShortfall" /> Shortfall<br />
+            <input type="radio" name="status" value="COMPLETE" id="statusComplete" /> Completed<br />
+        </div>
+        <div class="form-group">
+            <button onclick="saveForm()">Save</button>
+        </div>
+    </div>
+</div>
+<div id="footer"></div> <!-- Footer will be loaded here -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+
+            // Load header and footer
+ fetch('/fragments/header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+
+        fetch('/fragments/footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading footer:', error));
+            // Fetch user details and update header and footer
+
+
+ async function fetchEntriesByStatus(status) {
+    console.log(`Fetching entries for status: ${status}`);
+    const response = await fetch(`/api/kitform/status?status=${status}`);
+    if (!response.ok) {
+        console.error('Failed to fetch entries:', response.statusText);
+        return;
+    }
+    const entries = await response.json();
+    console.log('Entries retrieved:', entries);
+    populateDetailedEntries(entries);
+    
+    // Update the status header
+    const statusHeader = document.getElementById("currentStatus");
+    statusHeader.innerText = status === 'COMPLETE' ? 'Complete Kit Forwarded Details' :
+                             status === 'IN PROCESS' ? 'In Process Kit Forwarded Details' :
+                             status === 'SHORTFALL' ? 'Shortfall Kit Forwarded Details' :
+                             'Kit Forwarded Details'; // Default case
+}
+
+function showChart() {
+    document.getElementById("chartContainer").style.display = "block"; // Show the chart
+    document.getElementById("detailedEntries").style.display = "none"; // Hide detailed entries
+}
+
+window.onload = function() {
+    fetchEntriesByStatus('IN PROCESS'); // Show IN PROCESS entries by default
+    fetchStatusCounts();
+    
+};
+
+function populateDetailedEntries(entries) {
+    const detailedBody = document.getElementById("detailedBody");
+    detailedBody.innerHTML = ""; // Clear previous entries
+    entries.forEach(entry => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${entry.referenceId}</td>
+            <td>${new Date(entry.dateTime).toLocaleString()}</td>
+            <td>${entry.blcPo}</td>
+            <td>${entry.blcPoDate}</td>
+            <td>${entry.ccn}</td>
+            <td>${entry.assemblyCode}</td>
+            <td>${entry.machineName}</td>
+            <td>${entry.stage}</td>
+            <td>${entry.status}</td>
+            <td>${entry.inwardBy}</td>
+            <td>${entry.inwardQty}</td>
+            <td>${entry.description}</td>
+            <td>${entry.completionDate ? new Date(entry.completionDate).toLocaleString() : 'N/A'}</td>
+        `;
+        
+        // Only add the action column if the status is not COMPLETE
+        if (entry.status !== 'COMPLETE') {
+            row.innerHTML += `<td><button onclick="editEntry('${entry.id}')">Edit</button></td>`;
+        } else {
+            row.innerHTML += `<td></td>`; // Add an empty cell for the action column
+        }
+
+        detailedBody.appendChild(row);
+    });
+    document.getElementById("detailedEntries").style.display = "block"; // Show detailed entries
+}
+
+    async function fetchStatusCounts() {
+        const response = await fetch('/api/kitform/status/counts');
+        const counts = await response.json();
+        
+        document.getElementById("inProcessCount").innerText = counts["IN PROCESS"] || 0;
+        document.getElementById("shortfallCount").innerText = counts["SHORTFALL"] || 0;
+        document.getElementById("completeCount").innerText = counts["COMPLETE"] || 0;
+
+        createPieChart(counts);
+    }
+
+    function createPieChart(counts) {
+    const ctx = document.getElementById('statusPieChart').getContext('2d');
+    const data = {
+        labels: Object.keys(counts),
+        datasets: [{
+            label: 'Status Counts',
+            data: Object.values(counts),
+            backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)',
+                'rgb(255, 205, 86)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)'
+            ],
+            borderWidth: 1 // Adjust this value to change the line width
+        }]
+    };
+
+    const options = {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: true,
+                position: 'top', // Position the legend at the top
+                align: 'start', // Align the legend items to the start
+                labels: {
+                    color: 'white', // Change font color to white
+                    font: {
+                        size: 10, // Adjust font size for legend
+                        weight: 'normal' // Set font weight
+                    },
+                    padding: 5 // Adjust padding for legend items
+                }
+            },
+            tooltip: {
+                bodyFont: {
+                    size: 10 // Adjust font size for tooltip
+                }
+            }
+        },
+        layout: {
+            padding: {
+                top: 20 // Add padding to the top
+            }
+        }
+    };
+
+    new Chart(ctx, {
+        type: 'pie',
+        data: data,
+        options: options
+    });
+}
+
+
+    async function editEntry(id) {
+        const response = await fetch(`/api/kitform/${id}`);
+        const kitForm = await response.json();
+        populateForm(kitForm);
+    
+        document.getElementById("kitFormId").value = kitForm.id; // Populate the ID field for the form
+        document.getElementById("kitForm").style.display = "block"; // Show the form
+    }
+
+    function populateForm(kitForm) {
+    document.getElementById("referenceId").value = kitForm.referenceId;
+
+ // Use Moment.js to parse the date and format it
+ const formattedDateTime = moment(kitForm.dateTime).local().format('YYYY-MM-DDTHH:mm');
+    document.getElementById("dateTime").value = formattedDateTime;
+
+    document.getElementById("blcPoInput").value = kitForm.blcPo;
+    document.getElementById("blcPoDate").value = kitForm.blcPoDate;
+    document.getElementById("ccn").value = kitForm.ccn;
+    document.getElementById("assemblyCode").value = kitForm.assemblyCode;
+    document.getElementById("machineName").value = kitForm.machineName;
+    document.getElementById("stage").value = kitForm.stage;
+    document.getElementById("inwardBy").value = kitForm.inwardBy;
+    document.getElementById("inwardQty").value = kitForm.inwardQty;
+    document.getElementById("description").value = kitForm.description;
+
+    // Set the radio button for status based on the current status
+    if (kitForm.status === "IN PROCESS") {
+        document.getElementById("statusInProcess").checked = true;
+    } else if (kitForm.status === "SHORTFALL") {
+        document.getElementById("statusShortfall").checked = true;
+    } else if (kitForm.status === "COMPLETE") {
+        document.getElementById("statusComplete").checked = true;
+    }
+}
+
+async function saveForm() {
+    const kitForm = {
+        referenceId: document.getElementById("referenceId").value,
+        dateTime: document.getElementById("dateTime").value, // This should be in the format YYYY-MM-DDTHH:mm
+        blcPo: document.getElementById("blcPoInput").value,
+        blcPoDate: document.getElementById("blcPoDate").value,
+        ccn: document.getElementById("ccn").value,
+        assemblyCode: document.getElementById("assemblyCode").value,
+        stage: document.getElementById("stage").value,
+        machineName: document.getElementById("machineName").value,
+        inwardBy: document.getElementById("inwardBy").value,
+        inwardQty: document.getElementById("inwardQty").value,
+        description: document.getElementById("description").value,
+        id: document.getElementById("kitFormId").value,
+        status: document.querySelector('input[name="status"]:checked').value
+    };
+    console.log("KitForm to be updated:", kitForm);
+    
+    const response = await fetch(`/api/kitform/update`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(kitForm)
+    });
+
+    if (response.ok) {
+        alert("Entry updated successfully!");
+        location.reload(); // Refresh the page to reflect changes
+    } else {
+        const errorText = await response.text(); // Get the error message from the response
+        console.error("Error response:", errorText); // Log the error response
+        alert("Error updating entry: " + errorText); // Show the error message
+    }
+}
+
+document.getElementById('filterBtn').addEventListener('click', async () => {
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+
+    if (!startDate || !endDate) {
+        alert('Please select both start and end dates.');
+        return;
+    }
+
+    // Format the dates to include time
+    const formattedStartDate = `${startDate}T00:00:00`;
+    const formattedEndDate = `${endDate}T23:59:59`;
+
+    const response = await fetch(`/api/kitform/filter?startDate=${formattedStartDate}&endDate=${formattedEndDate}`);
+    if (!response.ok) {
+        console.error('Failed to fetch entries:', response.statusText);
+        return;
+    }
+    const entries = await response.json();
+    populateDetailedEntries(entries);
+});
+</script>
+</body>
+</html>

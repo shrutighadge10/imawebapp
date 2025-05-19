@@ -1,0 +1,79 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgb(243, 121, 22);
+
+}
+
+/* Style the container with white background, centering, padding, and rounded corners */
+.container {
+    position: relative;
+  max-width: 700px;
+  width: 100%;
+  background: #fff;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+.container header {
+    font-size: 1.5rem;
+    color: #333;
+    font-weight: 500;
+    text-align: center;
+  }
+  .container .form {
+    margin-top: 30px;
+  }
+
+/* Style the labels for clarity and spacing */
+label {
+    display: block;
+    margin: 10px 0 5px; /* Space above and below the label */
+    
+}
+
+/* Style the form elements: input fields and textarea */
+input[type="date"], textarea {
+    margin: 5px 0 15px; /* Space around the input fields */
+    padding: 10px;
+    width: calc(100% - 22px); /* Full width minus padding and border */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box; /* Ensure padding and border are included in width */
+}
+
+/* Style the textarea specifically to have a larger height */
+textarea {
+    height: 120px; /* Adjust as needed */
+}
+
+/* Style the buttons with padding, rounded corners, and specific colors */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    color: white;
+    margin-right: 10px;
+    display: inline-block;
+}
+
+.btn.save {
+    background-color: green;
+}
+
+.btn.discard {
+    background-color: red;
+}

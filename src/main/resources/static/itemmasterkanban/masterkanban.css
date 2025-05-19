@@ -1,0 +1,208 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #35474d;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo img {
+  height: 40px;
+}
+
+.search-bar {
+  flex: 1;
+  margin: 0 20px;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  margin-top: 150px; /* Increased space for fixed header */
+
+}
+.form-wrapper {
+  width: 100%;
+  max-width: 600px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px; /* Space below the form */
+}
+/* Main Content Styles */
+.container {
+  flex-grow: 1; /* Allow the container to grow and fill space */
+  display: flex;
+  justify-content: center; /* Center the container horizontally */
+  align-items: flex-start; /* Align items to the start vertically */
+  padding: 100px 20px 20px; /* Increased padding to avoid overlap with header */
+}
+footer {
+  text-align: center;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-top: 1px solid #dee2e6;
+  width: 100%;
+  margin-top: auto;
+}
+
+
+
+.submit-button {
+  background-color: #35474d;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #2c3e50;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .search-bar input {
+      width: 70%;
+  }
+}
+
+@media (max-width: 480px) {
+  header {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 10px;
+  }
+
+  .search-bar {
+      width: 100%;
+      margin: 10px 0;
+  }
+}
+
+textarea {
+  height: 120px;
+}
+
+.button-container {
+display: flex;
+justify-content: center; /* Center the button horizontally */
+margin-top: 20px; /* Add some space above the button */
+}
+
+
+.gender-box {
+  margin-top: 20px;
+}
+
+.gender-box h3 {
+  color: #333;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+
+.gender {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+}
+
+.gender input {
+  accent-color: #35474d;
+}
+
+.gender label {
+  color: #707070;
+}
+
+.form-group {
+  margin-top: 20px;
+  position: relative; /* Position relative for suggestion boxes */
+}
+
+.form-control {
+  height: 50px;
+  width: 100%;
+  outline: none;
+  font-size: 1rem;
+  color: #707070;
+  margin-top: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0 15px;
+}
+
+.suggestions-list {
+  display: none;
+  position: absolute;
+  z-index: 1000;
+  background: white;
+  border: 1px solid #ccc;
+  max-height: 150px;
+  overflow-y: auto;
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 5px; /* Space between input and suggestion box */
+}
+
+.suggestions-list div {
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.suggestions-list div:hover {
+  background-color: #f1f1f1;
+}
+
+@media screen and (max-width: 1200px) {
+  .container {
+      max-width: 600px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .container {
+      max-width: 500px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .container {
+      padding: 15px;
+  }
+}

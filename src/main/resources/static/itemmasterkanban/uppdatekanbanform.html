@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Form</title>
+</head>
+<body>
+    <h1>Update Form</h1>
+    <form id="updateForm">
+        <input type="hidden" id="referenceId" />
+        <div>
+            <label for="assemblyCode">Assembly Code:</label>
+            <input type="text" id="assemblyCode" required />
+        </div>
+        <div>
+            <label for="machineName">Machine Name:</label>
+            <input type="text" id="machineName" required />
+        </div>
+        <div>
+            <label for="lmLocation">LimbodaGiri Location:</label>
+            <input type="text" id="lmLocation" required />
+        </div>
+        <div>
+            <label for="kmLocation">KM Location:</label>
+            <input type="text" id="kmLocation" required />
+        </div>
+        <div>
+            <label for="inwardLocation">Inward Location:</label>
+            <input type="text" id="inwardLocation" required />
+        </div>
+        <div>
+            <label for="stage">Stage:</label>
+            <input type="text" id="stage" required />
+        </div>
+        <div>
+            <label for="openingStock">Opening Stock:</label>
+            <input type="number" id="openingStock" required />
+        </div>
+        <div >
+            <label for="openingStockKM">Opening Stock KM:</label>
+            <input type="number" id="openingStockKM" required />
+        </div>
+        <div>
+            <label for="reorderLevel">Reorder Level:</label>
+            <input type="number" id="reorderLevel" required />
+        </div>
+        <div>
+            <label for="reorderQty">Reorder Quantity:</label>
+            <input type="number" id="reorderQty" required />
+        </div>
+        <div>
+            <label for="description">Description:</label>
+            <input type="text" id="description" required />
+        </div>
+        <button type="submit">Update</button>
+    </form>
+
+    <script>
+   async function fetchFormData(referenceId) {
+    try {
+        const response = await fetch(`/api/getRecord/${referenceId}`);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        console.log(data); // Check the structure of the response
+
+        if (data) {
+            document.getElementById('referenceId').value = data.referenceId || '';
+            document.getElementById('assemblyCode').value = data.assemblyCode || '';
+            document.getElementById('machineName').value = data.machineName || '';
+            document.getElementById('lmLocation').value = data.lmLocation || '';
+            document.getElementById('kmLocation').value = data.kmLocation || '';
+            document.getElementById('inwardLocation').value = data.inward_location || '';
+            document.getElementById('stage').value = data.stage || '';
+            document.getElementById('openingStock').value = data.opening_stock || '';
+            document.getElementById('openingStockKM').value = data.opening_stock_km || '';
+            document.getElementById('reorderLevel').value = data.reorder_level || '';
+            document.getElementById('reorderQty').value = data.reorder_qty || '';
+            document.getElementById('description').value = data.description || '';
+        }
+    } catch (error) {
+        console.error('Error fetching form data:', error);
+    }
+}
+        document.getElementById('updateForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const referenceId = document.getElementById('referenceId').value;
+            const updatedData = {
+                referenceId,
+                assemblyCode: document.getElementById('assemblyCode').value,
+                machineName: document.getElementById('machineName').value,
+                lmLocation: document.getElementById('lmLocation').value,
+                kmLocation: document.getElementById('kmLocation').value,
+                inwardLocation: document.getElementById('inwardLocation').value,
+                stage: document.getElementById('stage').value,
+                openingStock: document.getElementById('openingStock').value,
+                openingStockKM: document.getElementById('openingStockKM').value,
+                reorderLevel: document.getElementById('reorderLevel').value,
+                reorderQty: document.getElementById('reorderQty').value,
+                description: document.getElementById('description').value,
+            };
+
+            try {
+                const response = await fetch('/api/updateRecord', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(updatedData),
+                });
+
+                if (response.ok) {
+                    alert('Record updated successfully');
+                    window.location.href = 'tablePage.html'; // Redirect back to the table page
+                } else {
+                    alert('Failed to update record');
+                }
+            } catch (error) {
+                console.error('Error updating record:', error);
+            }
+        });
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const referenceId = urlParams.get('referenceId');
+        if (referenceId) {
+            fetchFormData(referenceId);
+        }
+    </script>
+</body>
+</html>
+

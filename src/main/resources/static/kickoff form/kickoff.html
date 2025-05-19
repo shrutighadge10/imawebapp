@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="kickoff.css">
+    <title>Kick-Off Form</title>
+    <style>
+        .form-page {
+            display: none;
+        }
+        .form-page.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <section class="container">
+        <header>Project Kick-Off Form</header>
+        <form id="kickoff-form">
+            <!-- First Page -->
+            <div class="form-page active" id="page1">
+                <div>
+                    <label>Time Stamp</label>
+                    <input type="date" placeholder="" required />
+                </div>
+
+                <label>CCN</label>
+                <input type="text" name="ccn" required /><br>
+
+                <label>Customer Name</label>
+                <input type="text" name="customer_name" required /><br>
+
+                <label>Address</label>
+                <input type="text" name="Address" required /><br>
+
+                <label>Machine Model</label>
+                <input type="text" name="machine_model" required /><br>
+
+                <label>Venue</label>
+                <input type="text" name="venue" required /><br>
+
+                <label>KOM No.</label>
+                <input type="text" name="kom_no" placeholder="IMA-PG Indore/2024/022" required /><br>
+
+                <label>PO Delivery Date</label>
+                <input type="date" name="po_delivery_date" required /><br>
+
+
+                <label>Members Present</label>
+                <input type="text" name="members_present" /><br>
+
+                <!-- Machine Basics Table -->
+                <label >Machine Basics</label>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td> PLC</td>
+                            <td><input type="text" name="machine_basics[1]" /></td>
+                        </tr>
+                        <tr>
+                            <td> HMI / IPC</td>
+                            <td><input type="text" name="machine_basics[2]" /></td>
+                        </tr>
+                        <tr>
+                            <td> Language</td>
+                            <td><input type="text" name="machine_basics[3]" /></td>
+                        </tr>
+                        <tr>
+                            <td> CE Certification</td>
+                            <td><input type="text" name="machine_basics[4]" /></td>
+                        </tr>
+                        <tr>
+                            <td>Voltage (Power Connection)</td>
+                            <td><input type="text" name="machine_basics[5]" /></td>
+                        </tr>
+                        <tr>
+                            <td> Compress Air Requirement</td>
+                            <td><input type="text" name="machine_basics[6]" /></td>
+                        </tr>
+                        <tr>
+                            <td>Alarms & Messages Language</td>
+                            <td><input type="text" name="machine_basics[7]" /></td>
+                        </tr>
+                        <tr>
+                            <td> Operation Manual Language</td>
+                            <td><input type="text" name="machine_basics[8]" /></td>
+                        </tr>
+                        <tr>
+                            <td> URS</td>
+                            <td><input type="text" name="machine_basics[9]" /></td>
+                        </tr>
+                        <tr>
+                            <td> Product Samples</td>
+                            <td><input type="text" name="machine_basics[10]" /></td>
+                        </tr>
+                        <tr>
+                            <td> Machine Link up</td>
+                            <td><input type="text" name="machine_basics[11]" /></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <br>
+
+                <!-- Machine Features Table with Add Row Option -->
+                <label>Machine Features</label>
+                <table id="machine-features-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Rows will be added here -->
+                    </tbody>
+                </table>
+                <button type="button" onclick="addMachineFeature()">Add Row</button><br>
+
+                <!-- Additional/Other Options Table -->
+                <label>Additional/Other Options</label>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>Installation & Commissioning</td>
+                            <td><input type="text" name="additional_options[installation_commissioning]" /></td>
+                        </tr>
+                        <tr>
+                            <td>Transportation</td>
+                            <td><input type="text" name="additional_options[transportation]" /></td>
+                        </tr>
+                        <tr>
+                            <td>IQ/OQ/PQ/DQ</td>
+                            <td><input type="text" name="additional_options[iq_oq_pq_dq]" /></td>
+                        </tr>
+                        <tr>
+                            <td>Operation Manual</td>
+                            <td><input type="text" name="additional_options[operation_manual]" /></td>
+                        </tr>
+                        <tr>
+                            <td>Product & Packaging Material From</td>
+                            <td><input type="text" name="additional_options[product_packaging_material]" /></td>
+                        </tr>
+                    </tbody>
+                </table><br>
+
+                <label for="project_kickoff_details">Project Kick-off Details:</label>
+                <textarea id="project_kickoff_details" name="project_kickoff_details"></textarea><br>
+
+                <button type="button" onclick="showPage(2)">Next</button>
+            </div>
+
+            <!-- Second Page -->
+            <div class="form-page" id="page2">
+                <label for="po_receipt_date">PO Receipt Date:</label>
+                <input type="date" id="po_receipt_date" name="po_receipt_date"><br>
+
+                <label for="oa_generation_date">OA Generation Date:</label>
+                <input type="date" id="oa_generation_date" name="oa_generation_date"><br>
+
+                <label for="kom_date">KOM Date:</label>
+                <input type="date" id="kom_date" name="kom_date"><br>
+
+                <label for="advance_payment_receipt_date">Advance Payment Receipt Date:</label>
+                <input type="date" id="advance_payment_receipt_date" name="advance_payment_receipt_date"><br>
+
+                <label for="balance_payment_receipt_date">Balance Payment Receipt Date:</label>
+                <input type="date" id="balance_payment_receipt_date" name="balance_payment_receipt_date"><br>
+
+                <label for="cp_layout_approvals">CP Layout Approvals:</label>
+                <input type="date" id="cp_layout_approvals" name="cp_layout_approvals"><br>
+
+                <label for="machine_layout_approvals">Machine Layout Approvals:</label>
+                <input type="date" id="machine_layout_approvals" name="machine_layout_approvals"><br>
+
+                <label for="room_layout_approvals">Room Layout Approvals:</label>
+                <input type="date" id="room_layout_approvals" name="room_layout_approvals"><br>
+
+                <label for="loa_release">LOA Release:</label>
+                <input type="date" id="loa_release" name="loa_release"><br>
+
+                <label for="dq_release">DQ Release:</label>
+                <input type="date" id="dq_release" name="dq_release"><br>
+
+                <label for="ppc_basic_date">PPC Basic Date (As per Kickoff):</label>
+                <input type="date" id="ppc_basic_date" name="ppc_basic_date"><br>
+
+                <label for="ppc_optional_date">PPC Optional Date (As per Kickoff):</label>
+                <input type="date" id="ppc_optional_date" name="ppc_optional_date"><br>
+
+                <label for="cp_design_release_date">CP Design Release Date:</label>
+                <input type="date" id="cp_design_release_date" name="cp_design_release_date"><br>
+
+                <label for="machine_manufacturing_basic">Machine Manufacturing Basic:</label>
+                <input type="date" id="machine_manufacturing_basic" name="machine_manufacturing_basic"><br>
+
+                <label for="machine_manufacturing_customisation">Machine Manufacturing Customisation:</label>
+                <input type="date" id="machine_manufacturing_customisation" name="machine_manufacturing_customisation"><br>
+
+                <label for="cp_manufacturing_date">CP Manufacturing Date:</label>
+                <input type="date" id="cp_manufacturing_date" name="cp_manufacturing_date"><br>
+
+                <label for="pmr_genration_submission_date">PMR Generation & Submission to Customer Date:</label>
+                <input type="date" id="pmr_genration_submission_date" name="pmr_genration_submission_date"><br>
+
+                <label for="products_receipt_date">Product Receipt Date:</label>
+                <input type="date" id="products_receipt_date" name="products_receipt_date"><br>
+
+                <label for="packaging_receipt_date">Packaging Receipt Date:</label>
+                <input type="date" id="packaging_receipt_date" name="packaging_receipt_date"><br>
+
+                <label for="ifat_protocol_release">IFAT Protocols Release:</label>
+                <input type="date" id="ifat_protocol_release" name="ifat_protocol_release"><br>
+
+                <label for="ifat_std_cp">IFAT With Std CP (As per Kickoff):</label>
+                <input type="date" id="ifat_std_cp" name="ifat_std_cp"><br>
+
+                <label for="ifat_customer_cp">IFAT With Customer CP (As per Kickoff):</label>
+                <input type="date" id="ifat_customer_cp" name="ifat_customer_cp"><br>
+
+                <label for="cfat">CFAT (As per Kickoff):</label>
+                <input type="date" id="cfat" name="cfat"><br>
+
+                <label for="compliance">Compliance:</label>
+                <input type="date" id="compliance" name="compliance"><br>
+
+                <label for="dispatch_clearance">Dispatch Clearance:</label>
+                <input type="date" id="dispatch_clearance" name="dispatch_clearance"><br>
+
+                <label for="planned_dispatch_date">Planned Dispatch Date (As per Kickoff):</label>
+                <input type="date" id="planned_dispatch_date" name="planned_dispatch_date"><br>
+
+                <button type="button" onclick="showPage(1)">Back</button>
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </section>
+
+    <script>
+        function showPage(pageNumber) {
+            const pages = document.querySelectorAll('.form-page');
+            pages.forEach((page, index) => {
+                page.classList.toggle('active', index + 1 === pageNumber);
+            });
+        }
+
+        function addMachineFeature() {
+            const table = document.getElementById('machine-features-table').getElementsByTagName('tbody')[0];
+            const newRow = table.insertRow();
+            const featureCell = newRow.insertCell(0);
+            const descriptionCell = newRow.insertCell(1);
+            featureCell.innerHTML = '<input type="text" name="machine_features[feature]" />';
+            descriptionCell.innerHTML = '<input type="text" name="machine_features[description]" />';
+        }
+    </script>
+</body>
+</html>

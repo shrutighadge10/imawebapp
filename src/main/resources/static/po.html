@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<!---Coding By CodingLab | www.codinglabweb.com--->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!--<title>Registration Form in HTML CSS</title>-->
+    <!---Custom CSS File--->
+    <link rel="stylesheet" href="po.css" />
+  </head>
+  <body>
+    <section class="container">
+      <header>Purchase Order Form</header>
+    
+      <form action="#" class="form">
+
+        <div>
+          <label>Time Stamp</label>
+          <input type="Date" placeholder="" required />
+        </div>
+      
+        <div class="input-box">
+          <label>Record No</label>
+          <input type="number" placeholder="" required />
+        </div>
+        <div class="input-box">
+          <label>CCN</label>
+          <input type="text" placeholder="Enter CCN" required />
+          <select id="CCN" class="dropdown"></select>
+        </div>
+       
+          <div class="input-box">
+            <label> Sales Person</label>
+            <input type="text" placeholder="Enter Sales Person" required />
+          </div>
+
+          <div class="input-box">
+            <label>PO Refrence Number</label>
+            <input type="number" placeholder="Enter PO Refrence Number" required />
+          </div>
+        
+          <div class="input-box">
+            <label>PO  Date</label>
+            <input type="date" placeholder="Enter PO Date" required />
+          </div>
+        </div>
+        
+          <div class="input-box">
+            <label>PO Delivery Date</label>
+            <input type="date" placeholder="Enter PO Delivery Date" required />
+          </div>
+
+          <div class="input-box">
+            <label>PO Value-Lacs</label>
+            <input type="number" placeholder="Enter PO Value Lacs" required />
+          </div>
+
+          <div class="input-box">
+            <label> Customer Name</label>
+            <input type="text" placeholder="Enter Customer Name" required />
+            <select id="customerNameDropdown" class="dropdown"></select>
+          </div>
+
+          <div class="input-box">
+            <label> Machine Name</label>
+            <input type="text" placeholder="Enter Machine Name" required />
+            <select id="machineNameDropdown" class="dropdown"></select>
+          </div>
+        
+          <div class="input-box">
+            <label>Enter Model</label>
+            <input type="text" placeholder="Enter Model" required />
+            <select id="modelNameDropdown" class="dropdown"></select>
+          </div>
+
+          <div class="input-box">
+            <label  for="machine-category">Machine Category:</label>
+            <select id="machine-category" name="machine-category">
+                <option value="customized">Customized</option>
+                <option value="stock">Stock</option>
+                <option value="rnd">R&D</option>
+                <option value="retrofit">Retrofit</option>
+            </select><br>
+            </div>
+            
+        <div class="gender-box">
+          <h3>Order Type</h3>
+          <div class="gender-option">
+            <div class="gender">
+              <input type="radio" id="check-inhouse" name="order type" checked />
+              <label for="check-inhouse">Inhouse</label>
+            </div>
+            <div class="gender">
+              <input type="radio" id="check-export" name="order type" />
+              <label for="check-export">Export</label>
+            </div>
+            <div class="gender">
+              <input type="radio" id="check-export" name="order type" />
+              <label for="check-export">Bra Transfer</label>
+            </div>
+            <div class="gender">
+              <input type="radio" id="check-Domestic" name="order type" />
+              <label for="check-Domestic">Domestic</label>
+            </div>
+          </div>
+        </div>
+<br>
+<div class="input-box address">
+  <label>Address</label><br>  
+          <select id="country"></select>
+              <select id="state"></select>
+              <select id="city"></select>
+           
+            <script type="module">
+              import {
+                Country,
+                State,
+                City,
+              } from "https://jspm.dev/country-state-city";
+        
+              const countrySelect = document.getElementById("country");
+              const stateSelect = document.getElementById("state");
+              const citySelect = document.getElementById("city");
+        
+              // Populate countries
+              countrySelect.innerHTML = '<option value="">Select Country</option>';
+              Country.getAllCountries().forEach((country) => {
+                countrySelect.innerHTML += `<option value="${country.isoCode}">${country.name}</option>`;
+              });
+        
+              // Country change event
+              countrySelect.addEventListener("change", function () {
+                stateSelect.innerHTML = '<option value="">Select State</option>';
+                citySelect.innerHTML = '<option value="">Select City</option>';
+        
+                if (this.value) {
+                  State.getStatesOfCountry(this.value).forEach((state) => {
+                    stateSelect.innerHTML += `<option value="${state.isoCode}">${state.name}</option>`;
+                  });
+                }
+              });
+        
+              // State change event
+              stateSelect.addEventListener("change", function () {
+                citySelect.innerHTML = '<option value="">Select City</option>';
+        
+                if (this.value) {
+                  City.getCitiesOfState(countrySelect.value, this.value).forEach(
+                    (city) => {
+                      citySelect.innerHTML += `<option value="${city.name}">${city.name}</option>`;
+                    }
+                  );
+                }
+              });
+            </script>
+       
+ 
+         <input type="text" placeholder="Enter Street Address" required />
+         <input type="text" placeholder="Enter Street Address line 2" required />
+         
+          </div>
+          
+        </div>
+        <button>Submit</button>
+      </form>
+    </section>
+  </body>
+</html>
