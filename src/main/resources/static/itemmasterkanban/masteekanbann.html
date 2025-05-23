@@ -572,17 +572,17 @@ document.getElementById('dynamicForm').addEventListener('submit', async (e) => {
     }
 
     const formData = {
-        reference_id: document.getElementById('referenceId').value,
-        assembly_code: assemblyCode,
-        machine_name: document.getElementById('machineInput').value.toUpperCase(), // Convert to uppercase
-        lm_location: document.getElementById('lmLocationInput').value.toUpperCase(), // Convert to uppercase
-        km_location: document.getElementById('kmLocationInput').value.toUpperCase(), // Convert to uppercase
-        inward_location: document.getElementById('inwardLocationDropdown').value,
+        referenceId: document.getElementById('referenceId').value,
+        assemblyCode: assemblyCode,
+        machineName: document.getElementById('machineInput').value.toUpperCase(), // Convert to uppercase
+        lmLocation: document.getElementById('lmLocationInput').value.toUpperCase(), // Convert to uppercase
+        kmLocation: document.getElementById('kmLocationInput').value.toUpperCase(), // Convert to uppercase
+        inwardLocation: document.getElementById('inwardLocationDropdown').value,
         stage: document.querySelector('input[name="stage"]:checked')?.value,
-        opening_stock: document.getElementById('openingStock').value,
-        opening_stock_km: document.getElementById('openingStockKM').value,
-        reorder_level: document.getElementById('reorderLevel').value,
-        reorder_qty: document.getElementById('reorderQty').value,
+        openingStock: document.getElementById('openingStock').value,
+        openingStockKM: document.getElementById('openingStockKM').value,
+        reorderLevel: document.getElementById('reorderLevel').value,
+        reorderQty: document.getElementById('reorderQty').value,
         description: document.getElementById('description').value.toUpperCase(), // Convert to uppercase
     };
 
