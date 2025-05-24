@@ -14,25 +14,39 @@
             box-sizing: border-box;
             font-family: "Poppins", sans-serif;
         }
-        .hidden {
-        display: none;
-    }
         body {
             min-height: 100vh;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            background: #3E8DA8;
+            flex-direction: column;
+            background:#35474d;
+        }
+        #header {
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+        #footer {
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            z-index: 1000;
         }
         .container {
             position: relative;
-            max-width: 700px;
+            max-width: 500px;
             width: 100%;
             background: #fff;
             padding: 25px;
             border-radius: 8px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            margin: 90px auto 70px auto; /* Top margin for header, bottom for footer */
+            min-height: calc(100vh - 180px); /* Prevent overlap with header/footer */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         .container header {
             font-size: 1.5rem;
@@ -44,6 +58,7 @@
             display: flex;
             flex-direction: column;
             margin-top: 30px;
+            width: 100%;
         }
         .step {
             display: none;
@@ -136,9 +151,19 @@
     float: right;
     font-size: 20px;
 }
+
+.search-bar input {
+            width: 80%; /* Full width for the search input */
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            height: 32px; /* Reduced height */
+            font-size: 15px; /* Slightly smaller font */
+        }
     </style>
 </head>
 <body>
+    <div id="header"></div> <!-- Header will be loaded here -->
     <div class="container">
         <h1>Update Record</h1>
         <form id="multiStepForm" class="form">
@@ -321,11 +346,27 @@
                 <span class="close" onclick="closeQRCodeOverlay()" style="cursor: pointer; font-size: 20px; position: absolute; top: 10px; right: 10px;">×</span>
             </div>
         </div>
-</div>
+    </div>
+    <div id="footer"></div> <!-- Footer will be loaded here -->
 
+    <script src="kitlivestatus.js"></script>
     <script>
-   
-   function setCurrentDateTime() { const now = new Date(); const currentTime = now.getTime(); const indiaTime = new Date(currentTime + (5.5 * 60 * 60 * 1000)); // IST is UTC +5:30 
+    // Load header and footer
+    fetch('/fragments/header.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('header').innerHTML = data;
+        })
+        .catch(error => console.error('Error loading header:', error));
+
+    fetch('/fragments/footer.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('footer').innerHTML = data;
+        })
+        .catch(error => console.error('Error loading footer:', error));
+
+    function setCurrentDateTime() { const now = new Date(); const currentTime = now.getTime(); const indiaTime = new Date(currentTime + (5.5 * 60 * 60 * 1000)); // IST is UTC +5:30 
    
    const localDateTime = indiaTime.toISOString().slice(0, 16); // Format: YYYY-MM-DDTHH:MM 
  document.getElementById('currentDateTime').value = localDateTime; }

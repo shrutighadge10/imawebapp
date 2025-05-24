@@ -473,19 +473,18 @@ public List<Map<String, Object>> getAllFormData() {
     return formRepository.findAll().stream().map(formData -> {
         Map<String, Object> data = new HashMap<>();
         data.put("referenceId", formData.getReferenceId());
-                data.put("assemblyCode", formData.getAssemblyCode());
+        data.put("assemblyCode", formData.getAssemblyCode());
         data.put("description", formData.getDescription());
         data.put("machineName", formData.getMachineName());
         data.put("lmLocation", formData.getLmLocation());
+        data.put("kmLocation", formData.getKmLocation());
         data.put("inwardLocation", formData.getInward_location());
         data.put("stage", formData.getStage());
         data.put("openingStock", formData.getOpening_stock());
         data.put("openingStockKM", formData.getOpening_stock_km());
         data.put("reorderLevel", formData.getReorder_level());
         data.put("reorderQty", formData.getReorder_qty());
-     
-// Calculate closing formData
-
+        data.put("createdAt", formData.getCreatedAt());
         return data;
     }).collect(Collectors.toList());
 }

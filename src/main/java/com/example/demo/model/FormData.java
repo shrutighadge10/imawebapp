@@ -179,4 +179,12 @@ public class FormData {
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
+
+    public String getKm_location() {
+        return this.kmLocation;
+    }
+
+    public void setKm_location(String kmLocation) {
+        this.kmLocation = kmLocation;
+    }
 }
