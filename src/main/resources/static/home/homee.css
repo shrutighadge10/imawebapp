@@ -31,11 +31,12 @@ nav{
   display: flex;
   align-items: center;
   justify-content: space-between; /* Adjusts spacing between items */
-  padding: 0; /* Remove any default padding */
+  padding: 0 20px; /* Add horizontal padding for spacing */
+  gap: 10px; /* Add gap between navbar items */
 }
 
 .logo-image {
-  margin-left: 20px; /* Ensure no margin */
+  margin-left: 0; /* Remove extra left margin so logo is visible */
 }
 
 .logo-image img {
@@ -152,6 +153,7 @@ nav .navbar .links li:hover .others-sub-menu {
   position: relative;
   height: 40px;
   width: 40px;
+  margin-right: 60px; /* Increase space between search and avatar */
 }
 .navbar .search-box i{
   position: absolute;
@@ -228,8 +230,8 @@ nav .navbar .links li:hover .others-sub-menu {
     font-size: 15px;
   }
 }
+
 @media (max-width:800px){
- 
   .navbar .bx-menu{
     display: block;
   }
@@ -241,6 +243,10 @@ nav .navbar .links li:hover .others-sub-menu {
     max-width: 270px;
     width: 100%;
     background: #35474d;;
+    height: 100vh;
+    overflow-y: auto; /* Enable vertical scroll bar for sidebar */
+    z-index: 100;
+    transition: left 0.3s;
   }
 
   .navbar .nav-links .sidebar-logo{
@@ -367,8 +373,11 @@ footer {
   text-decoration: underline;
 }
 .avatar {
-  width: 80;
-  height: 30px;
+  width: 40px;
+  height: 40px;
+  font-size: 18px;
+  margin-left: 0; /* Remove left margin */
+  margin-right: 0; /* Keep right margin 0 */
   background-color: #ee1919; /* a nice orange color */
   color: white;
   border-radius: 50%; /* circle */
@@ -377,7 +386,6 @@ footer {
   justify-content: center;
   font-weight: bold;
   font-family: 'Poppins', sans-serif;
-  font-size: 20px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  margin-left: 70px;
+  /* margin-left: 70px; */
 }
