@@ -131,8 +131,11 @@
         </div>
       </div>
 
-      <div class="avatar">
+      <div class="avatar" id="avatarDropdown">
         <span class="avatar-text" th:text="${#strings.substring(session.user.employeename, 0, 1)} + ${#strings.substring(session.user.employeename.split(' ').length > 1 ? session.user.employeename.split(' ')[1] : session.user.employeename, 0, 1)}">AK</span>
+        <div class="avatar-menu" id="avatarMenu">
+          <a href="/logout">Logout</a>
+        </div>
       </div>
     </div>
   </nav>
@@ -151,6 +154,30 @@
 </footer>
 
   <script src="/home/homee.js"></script>
+  <script>
+    // Avatar dropdown logic
+    const avatar = document.getElementById('avatarDropdown');
+    const menu = document.getElementById('avatarMenu');
+    document.addEventListener('click', function(e) {
+      if (avatar.contains(e.target)) {
+        menu.classList.toggle('show');
+      } else {
+        menu.classList.remove('show');
+      }
+    });
+    // Sidebar minimize logic
+    document.addEventListener('DOMContentLoaded', function() {
+      const sidebar = document.querySelector('.nav-links');
+      let minimizeBtn = document.createElement('button');
+      minimizeBtn.innerText = '≡';
+      minimizeBtn.className = 'sidebar-minimize';
+      sidebar.prepend(minimizeBtn);
+      minimizeBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        sidebar.classList.toggle('minimized');
+      });
+    });
+  </script>
   
 </body>
 </html>
